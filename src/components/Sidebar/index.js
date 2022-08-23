@@ -3,79 +3,111 @@ import { Transition } from "react-transition-group";
 import HomeIcon from "@mui/icons-material/Home";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import EventNoteIcon from "@mui/icons-material/EventNote";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {
-	Container,
-	SidebarWrapper,
-	SideIcon,
-	SideText,
-	Logo,
+  Container,
+  SidebarWrapper,
+  SideIcon,
+  SideText,
+  Logo,
 } from "./SidebarElements";
+import firebase from "firebase/compat/app";
+import { getAuth, signOut } from "firebase/auth";
+import { auth } from "../../firebase";
+import { formControlClasses } from "@mui/material";
 
-function Sidebar() {
-	const [hover, setHover] = useState({
-		home: false,
-		chart: false,
-		event: false,
-		a4: false,
-		a5: false,
-	});
+function Sidebar({ active, setActive, handleActive }) {
+  const [hover, setHover] = useState({
+    home: false,
+    chart: false,
+    a: false,
+    b: false,
+    c: false,
+    d: false,
+  });
 
-	const [active, setActive] = useState(true);
+  const [windowWidth, setWindowWidth] = useState(2000);
 
-	return (
-		<>
-			<Container>
-				<SidebarWrapper>
-					<Logo>ET</Logo>
+  function reportWindowSize() {
+    setWindowWidth(window.innerWidth);
+  }
 
-					<SideIcon
-						onMouseOver={() => setHover({ ...hover, home: true })}
-						onMouseOut={() => setHover({ ...hover, home: false })}
-						hover={hover.home}
-						active={active}>
-						<HomeIcon />
-						<SideText hover={hover.home}>Overview</SideText>
-					</SideIcon>
+  window.onresize = reportWindowSize;
 
-					<SideIcon
-						onMouseOver={() => setHover({ ...hover, chart: true })}
-						onMouseOut={() => setHover({ ...hover, chart: false })}
-						hover={hover.chart}>
-						<BarChartIcon />
-						<SideText hover={hover.chart}>Chart</SideText>
-					</SideIcon>
+  return (
+    <>
+      <Container>
+        <SidebarWrapper>
+          <Logo>{windowWidth < 768 ? "ET" : "Expenses Tracker"}</Logo>
 
-					<SideIcon
-						onMouseOver={() => setHover({ ...hover, event: true })}
-						onMouseOut={() => setHover({ ...hover, event: false })}
-						hover={hover.event}>
-						<EventNoteIcon />
-						<SideText hover={hover.event}>Event</SideText>
-					</SideIcon>
+          <SideIcon
+            onMouseOver={() => setHover({ ...hover, home: true })}
+            onMouseOut={() => setHover({ ...hover, home: false })}
+            onClick={() => handleActive("home")}
+            hover={hover.home}
+            active={active.home}
+          >
+            <HomeIcon />
+            <SideText hover={hover.home}>Overview</SideText>
+          </SideIcon>
 
-					<SideIcon
-						onMouseOver={() => setHover({ ...hover, a4: true })}
-						onMouseOut={() => setHover({ ...hover, a4: false })}
-						hover={hover.a4}>
-						<EventNoteIcon />
-						<SideText hover={hover.a4}>Event1</SideText>
-					</SideIcon>
+          <SideIcon
+            onMouseOver={() => setHover({ ...hover, chart: true })}
+            onMouseOut={() => setHover({ ...hover, chart: false })}
+            onClick={() => handleActive("chart")}
+            hover={hover.chart}
+            active={active.chart}
+          >
+            <BarChartIcon />
+            <SideText hover={hover.chart}>Chart</SideText>
+          </SideIcon>
 
-					<SideIcon
-						onMouseOver={() => setHover({ ...hover, a5: true })}
-						onMouseOut={() => setHover({ ...hover, a5: false })}
-						hover={hover.a5}>
-						<EventNoteIcon />
-						<SideText hover={hover.a5}>Event2</SideText>
-					</SideIcon>
-				</SidebarWrapper>
-				<SideIcon>
-					<AccountCircleIcon fontSize="large" />
-				</SideIcon>
-			</Container>
-		</>
-	);
+          <SideIcon
+            onMouseOver={() => setHover({ ...hover, a: true })}
+            onMouseOut={() => setHover({ ...hover, a: false })}
+            onClick={() => handleActive("a")}
+            hover={hover.a}
+            active={active.a}
+          >
+            <EventNoteIcon />
+            <SideText hover={hover.a}>Event</SideText>
+          </SideIcon>
+
+          <SideIcon
+            onMouseOver={() => setHover({ ...hover, b: true })}
+            onMouseOut={() => setHover({ ...hover, b: false })}
+            onClick={() => handleActive("b")}
+            hover={hover.b}
+            active={active.b}
+          >
+            <EventNoteIcon />
+            <SideText hover={hover.b}>Event1</SideText>
+          </SideIcon>
+
+          <SideIcon
+            onMouseOver={() => setHover({ ...hover, c: true })}
+            onMouseOut={() => setHover({ ...hover, c: false })}
+            onClick={() => handleActive("c")}
+            hover={hover.c}
+            active={active.c}
+          >
+            <EventNoteIcon />
+            <SideText hover={hover.c}>Event2</SideText>
+          </SideIcon>
+        </SidebarWrapper>
+        <SideIcon
+          onMouseOver={() => setHover({ ...hover, d: true })}
+          onMouseOut={() => setHover({ ...hover, d: false })}
+          hover={hover.c}
+          signOutButton={true}
+          onClick={() => signOut(auth)}
+        >
+          <ExitToAppIcon fontSize="large" />
+          <SideText hover={hover.d}>Sign Out</SideText>
+        </SideIcon>
+      </Container>
+    </>
+  );
 }
 
 export default Sidebar;

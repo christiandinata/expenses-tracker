@@ -1,82 +1,172 @@
 import styled from "styled-components";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 1.75rem 1rem;
+  flex: 1;
+  flex-direction: column;
 
-export const Profile = styled.div`
-	display: flex;
-	flex: 1;
-	justify-content: space-between;
-	align-items: center;
-	padding-top: 24px;
-	margin-bottom: 30px;
+  @media (max-width: 658px) {
+    display: ${({ cycle }) => (cycle ? "none" : "flex")};
+  }
 `;
 
-export const Identity = styled.div``;
-
-export const ProfilePicture = styled(AccountCircleIcon)``;
-
-export const Chart = styled.div`
-	margin-bottom: 16px;
+export const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 `;
 
-export const Title = styled.div`
-	margin-bottom: 16px;
+export const AddIcon = styled(AddCircleOutlineIcon)`
+  cursor: pointer;
+  color: purple;
+  font-size: 2rem;
+  transition: 0.3s all ease-in;
+
+  &:hover {
+    color: red;
+    transition: 0.3s all ease-in;
+  }
 `;
 
-export const ChartWrapper = styled.div`
-	display: flex;
-	width: 100%;
-	flex: 1;
-	justify-content: flex-start;
-	align-items: center;
+export const DatePicker = styled.div`
+  margin-bottom: 24px;
 `;
 
-export const Outcome = styled.div`
-	width: 148px;
-	height: auto;
-	border: 2px #e3e3e3 solid;
-	margin-right: 16px;
-	padding: 8px 0 8px 16px;
-	border-radius: 16px;
+export const DataInner = styled.div`
+  width: 100%;
+  overflow-y: auto;
+  max-height: 440px;
+  border-radius: 16px;
+  padding: 1rem 1.5rem;
+  -webkit-box-shadow: 0px 24px 30px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 24px 30px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 24px 30px 0px rgba(0, 0, 0, 0.35);
 `;
 
-export const Income = styled.div`
-	width: 148px;
-	height: auto;
-	border: 2px #e3e3e3 solid;
-	padding: 8px 0 8px 16px;
-	border-radius: 16px;
+export const DataHeader = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  border-bottom: 1px solid #dbd5d5;
+  padding-bottom: 0.5rem;
 `;
 
-export const ChartTitle = styled.div`
-	text-transform: uppercase;
-	margin-bottom: 24px;
-	font-size: 12px;
+export const DataLeft = styled.div`
+  display: flex;
+  flex: 0.75;
 `;
 
-export const ChartImg = styled.img`
-	width: 80px;
-	height: 80px;
+export const Name = styled.div`
+  display: flex;
+  width: 80px;
+  max-width: 220px;
 `;
 
-export const ChartTotal = styled.div``;
+export const Qty = styled.div`
+  display: flex;
+  font-weight: 700;
+  margin-left: 1rem;
+`;
 
-export const CategoryChart = styled.div``;
+export const Price = styled.div`
+  font-weight: bold;
+  width: 100%;
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+`;
 
 export const Item = styled.div`
-	width: 100%;
-	/* display: flex;
-	flex-direction: column; */
-	padding: 8px 0 8px 16px;
-	/* justify-content: flex-start;
-	align-items: center; */
-	background-color: #ffe7b0;
-	margin-bottom: 8px;
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin: 1rem 0;
+  color: ${({ type }) => (type === "Expenses" ? "red" : "green")};
 `;
 
-export const ItemName = styled.div``;
+export const ItemLeft = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+`;
 
-export const Total = styled.div`
-	font-weight: bold;
+export const ItemName = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 80px;
+  max-width: 220px;
+`;
+
+export const ItemQty = styled.div`
+  display: flex;
+  font-weight: 700;
+  margin-left: 1rem;
+`;
+
+export const ItemPrice = styled.div`
+  font-weight: bold;
+  width: 100%;
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  margin-left: 0.5rem;
+`;
+
+export const ItemButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 2rem;
+  background-color: #fff;
+  color: red;
+  border-radius: 8px;
+  border: 1px solid #380107;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  outline: none;
+  visibility: ${({ visible }) => (visible === true ? "visible" : "hidden")};
+  transition: 0.2s all ease-in-out;
+
+  &:hover {
+    color: #fff;
+    background-color: red;
+  }
+`;
+
+export const DataReport = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 2rem;
+  justify-content: space-between;
+`;
+
+export const DataReportItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  &:nth-child(4) {
+    padding-top: 0.25rem;
+    border-top: 1px solid red;
+  }
+
+  p {
+    font-weight: 700;
+  }
+  /* p:nth-child(1) {
+    color: green;
+  } */
+  p:nth-child(2) {
+    color: red;
+  }
 `;
